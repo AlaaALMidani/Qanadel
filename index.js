@@ -18,6 +18,11 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('export-btn').addEventListener('click', exportToExcel);
     document.getElementById('clear-btn').addEventListener('click', clearTodayData);
     document.getElementById('attendance-date').addEventListener('change', dateChanged);
+
+    // Add event listeners for new features
+    document.getElementById('search-input').addEventListener('input', filterStudents);
+    document.getElementById('class-filter').addEventListener('change', filterStudents);
+    document.getElementById('sort-btn').addEventListener('click', toggleSort);
 });
 
 
@@ -63,6 +68,12 @@ function addStudent() {
     document.getElementById('student-class').value = '';
     document.getElementById('phone-number').value = '';
     document.getElementById('student-name').focus();
+
+    // Update stats after adding student
+    const dateKey = `attendance_${date}`;
+    const students = JSON.parse(localStorage.getItem(dateKey)) || [];
+    updateStats(students);
+    updateClassFilter(students);
 }
 
 function saveStudent(student) {
@@ -77,6 +88,12 @@ function loadAttendanceData(date) {
     const students = JSON.parse(localStorage.getItem(dateKey)) || [];
     const tableBody = document.getElementById('student-table-body');
     tableBody.innerHTML = '';
+
+    // Update class filter options
+    updateClassFilter(students);
+
+    // Update stats
+    updateStats(students);
 
     students.forEach((student, index) => {
         addStudentToTable(student, index + 1);
@@ -120,6 +137,10 @@ function deleteStudent(event) {
         localStorage.setItem(dateKey, JSON.stringify(students));
         loadAttendanceData(date);
     }
+
+    // Update stats after deleting student
+    updateStats(students);
+    updateClassFilter(students);
 }
 
 function clearTodayData() {
@@ -165,6 +186,76 @@ function exportToExcel() {
 
     // Export to Excel
     XLSX.writeFile(wb, fileName);
+}
+
+function updateClassFilter(students) {
+    const classFilter = document.getElementById('class-filter');
+    const classes = [...new Set(students.map(student => student.class))];
+    
+    // Keep the "All Classes" option
+    classFilter.innerHTML = '<option value="">All Classes</option>';
+    
+    // Add class options
+    classes.forEach(className => {
+        const option = document.createElement('option');
+        option.value = className;
+        option.textContent = className;
+        classFilter.appendChild(option);
+    });
+}
+
+function updateStats(students) {
+    document.getElementById('total-students').textContent = students.length;
+    document.getElementById('total-classes').textContent = new Set(students.map(student => student.class)).size;
+}
+
+function filterStudents() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const selectedClass = document.getElementById('class-filter').value;
+    const date = document.getElementById('attendance-date').value;
+    const dateKey = `attendance_${date}`;
+    const students = JSON.parse(localStorage.getItem(dateKey)) || [];
+    
+    const filteredStudents = students.filter(student => {
+        const matchesSearch = student.name.toLowerCase().includes(searchTerm) ||
+                            student.phone.includes(searchTerm);
+        const matchesClass = !selectedClass || student.class === selectedClass;
+        return matchesSearch && matchesClass;
+    });
+
+    const tableBody = document.getElementById('student-table-body');
+    tableBody.innerHTML = '';
+
+    filteredStudents.forEach((student, index) => {
+        addStudentToTable(student, index + 1);
+    });
+
+    updateStats(filteredStudents);
+}
+
+let sortDirection = 1; // 1 for ascending, -1 for descending
+
+function toggleSort() {
+    sortDirection *= -1;
+    const sortIcon = document.querySelector('.sort-icon');
+    sortIcon.textContent = sortDirection === 1 ? '↑' : '↓';
+    
+    const date = document.getElementById('attendance-date').value;
+    const dateKey = `attendance_${date}`;
+    const students = JSON.parse(localStorage.getItem(dateKey)) || [];
+    
+    students.sort((a, b) => {
+        const timeA = new Date(a.timestamp).getTime();
+        const timeB = new Date(b.timestamp).getTime();
+        return (timeA - timeB) * sortDirection;
+    });
+
+    const tableBody = document.getElementById('student-table-body');
+    tableBody.innerHTML = '';
+
+    students.forEach((student, index) => {
+        addStudentToTable(student, index + 1);
+    });
 }
 
 //K@034!##
