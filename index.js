@@ -42,7 +42,7 @@ function addStudent() {
         class: studentClass,
         phone,
         date,
-        timestamp: new Date().toLocaleTimeString()
+        timestamp:new  Date().toISOString().split('T')[0]+' '+ new Date().toLocaleTimeString()
     };
     
     // Save to localStorage
