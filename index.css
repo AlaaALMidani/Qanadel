@@ -1,21 +1,23 @@
 :root {
-    --primary-color: #2563eb;
-    --primary-dark: #1d4ed8;
-    --success-color: #059669;
-    --danger-color: #dc2626;
+    --primary-color: #4f46e5;
+    --primary-dark: #4338ca;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
     --text-primary: #1f2937;
     --text-secondary: #4b5563;
-    --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --border-radius: 1rem;
 }
 
 body {
     font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
     line-height: 1.6;
     margin: 0;
-    padding: 20px;
+    padding: 2rem;
     background: var(--bg-gradient);
     color: var(--text-primary);
     min-height: 100vh;
@@ -24,9 +26,9 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 2.5rem;
-    border-radius: 1rem;
+    background: var(--card-bg);
+    padding: 3rem;
+    border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
     backdrop-filter: blur(10px);
 }
@@ -34,13 +36,16 @@ body {
 h1 {
     color: var(--text-primary);
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.75rem;
     font-weight: 800;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     text-transform: uppercase;
     letter-spacing: -0.025em;
     position: relative;
-    padding-bottom: 1rem;
+    padding-bottom: 1.5rem;
+    background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 h1::after {
@@ -49,7 +54,7 @@ h1::after {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 120px;
+    width: 150px;
     height: 4px;
     background: linear-gradient(90deg, var(--primary-color), var(--success-color));
     border-radius: 2px;
@@ -60,82 +65,99 @@ h2 {
     text-align: center;
     font-size: 1.75rem;
     font-weight: 700;
-    margin: 1.5rem 0;
+    margin: 2rem 0;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
 }
 
 .date-selector {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     text-align: center;
     background: #f8fafc;
-    padding: 1.5rem;
-    border-radius: 0.75rem;
+    padding: 2rem;
+    border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .date-selector input {
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.5rem;
     border: 2px solid #e2e8f0;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    width: 220px;
+    border-radius: 0.75rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    width: 250px;
     background: white;
 }
 
 .date-selector input:focus {
     border-color: var(--primary-color);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     position: relative;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     font-weight: 600;
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .form-group input {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.5rem;
     border: 2px solid #e2e8f0;
-    border-radius: 0.5rem;
-    font-size: 1rem;
+    border-radius: 0.75rem;
+    font-size: 1.1rem;
     box-sizing: border-box;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     background: white;
 }
 
 .form-group input:focus {
     border-color: var(--primary-color);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
 }
 
 button {
     background: var(--primary-color);
     color: white;
     border: none;
-    padding: 0.75rem 1.5rem;
-    margin: 0.5rem;
-    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    margin: 0.75rem;
+    border-radius: 0.75rem;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.025em;
+    box-shadow: var(--shadow-sm);
 }
 
 button:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
+    background: var(--primary-dark);
 }
 
 #export-btn {
@@ -143,7 +165,7 @@ button:hover {
 }
 
 #export-btn:hover {
-    background: #047857;
+    background: #059669;
 }
 
 #clear-btn {
@@ -151,26 +173,29 @@ button:hover {
 }
 
 #clear-btn:hover {
-    background: #b91c1c;
+    background: #dc2626;
 }
 
 .student-list {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
     background: white;
-    padding: 1.5rem;
-    border-radius: 0.75rem;
+    padding: 2rem;
+    border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
 }
 
 th, td {
-    padding: 1rem;
+    padding: 1.25rem;
     text-align: left;
     border-bottom: 1px solid #e2e8f0;
 }
@@ -196,8 +221,8 @@ tr:hover {
     background: var(--danger-color);
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
     cursor: pointer;
     font-size: 0.875rem;
     transition: all 0.2s ease;
@@ -205,72 +230,83 @@ tr:hover {
 
 .delete-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
 }
 
 .table-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
-    gap: 1rem;
+    margin-bottom: 2rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .search-box {
     flex: 1;
-    min-width: 200px;
+    min-width: 100px;
 }
 
 .search-box input {
-    width: 100%;
-    padding: 0.75rem 1rem;
+    width: 80%;
+    padding: 1rem 1.5rem;
     border: 2px solid #e2e8f0;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    transition: all 0.2s ease;
+    border-radius: 0.75rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
     background: white;
 }
 
 .search-box input:focus {
     border-color: var(--primary-color);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
 }
 
 .filter-controls {
     display: flex;
-    gap: 0.75rem;
+    gap: 1rem;
     align-items: center;
 }
 
 .filter-controls select {
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.5rem;
     border: 2px solid #e2e8f0;
-    border-radius: 0.5rem;
-    font-size: 1rem;
+    border-radius: 0.75rem;
+    font-size: 1.1rem;
     background: white;
     cursor: pointer;
-    min-width: 150px;
+    min-width: 180px;
+    transition: all 0.3s ease;
+}
+
+.filter-controls select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
 }
 
 .sort-btn {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    background: #f8fafc;
+    gap: 0.75rem;
+    background: white;
     color: var(--text-secondary);
     border: 2px solid #e2e8f0;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .sort-btn:hover {
-    background: #f1f5f9;
-    transform: none;
-    box-shadow: none;
+    background: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
 .sort-icon {
@@ -279,21 +315,22 @@ tr:hover {
 
 .stats-summary {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .stat-card {
     background: white;
-    padding: 1.25rem;
+    padding: 1.5rem;
     border-radius: 0.75rem;
     box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .stat-card:hover {
@@ -303,14 +340,14 @@ tr:hover {
 
 .stat-label {
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .stat-value {
     color: var(--primary-color);
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
 }
 
@@ -328,8 +365,11 @@ tr:hover {
     }
     
     .form-group input,
-    .date-selector input {
+    .date-selector input,
+    .search-box input,
+    .filter-controls select {
         font-size: 16px;
+        padding: 0.875rem 1.25rem;
     }
     
     table {
@@ -340,22 +380,25 @@ tr:hover {
     }
     
     th, td {
-        padding: 0.75rem;
+        padding: 1rem;
         font-size: 0.875rem;
     }
     
     button {
         width: 100%;
         margin: 0.5rem 0;
+        padding: 0.875rem 1.25rem;
     }
     
     .table-controls {
         flex-direction: column;
         align-items: stretch;
+        padding: 1rem;
     }
     
     .filter-controls {
         flex-direction: column;
+        width: 100%;
     }
     
     .filter-controls select,
@@ -378,14 +421,22 @@ tr:hover {
     }
     
     .date-selector {
-        padding: 1rem;
+        padding: 1.25rem;
     }
     
     .student-list {
-        padding: 1rem;
+        padding: 1.25rem;
     }
     
     .form-group input {
         font-size: 16px;
+    }
+    
+    .stat-card {
+        padding: 1.25rem;
+    }
+    
+    .stat-value {
+        font-size: 1.75rem;
     }
 }
